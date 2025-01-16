@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .box {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            width: 200px;
+            height: 280px;
+            text-align: center;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<h1>Properties</h1>
+<div class="box-container">
+    <div class="box" th:each="property : ${properties}">
+        <h3 th:text="'Country: ' + ${property.country}"></h3>
+        <p th:text="'Town: ' + ${property.town}"></p>
+        <p th:text="'Address: ' + ${property.address}"></p>
+        <p th:text="'Floor: ' + ${property.floor}"></p>
+        <p th:text="'Postal Code: ' + ${property.postalCode}"></p>
+        <p th:text="'Dimentions: ' + ${property.dimensions}"></p>
+        <button type="button">Confirm</button>
+        <button type="button">Decline</button>
+    </div>
+</div>
+
+</body>
+</html>
