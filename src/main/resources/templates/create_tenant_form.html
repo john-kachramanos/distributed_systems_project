@@ -60,7 +60,7 @@
 
 <div class="form-container">
     <h1>Register a New Tenant</h1>
-    <form action="/Tenant/create" method="POST" th:object="${tenant}">
+    <form action="/tenant/create" method="POST" th:object="${tenant}">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <div class="form-group">

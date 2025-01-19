@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .box {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .confirm-button, .decline-button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .confirm-button {
+            background-color: #28a745;
+            color: white;
+        }
+        .confirm-button:hover {
+            background-color: #218838;
+        }
+        .decline-button {
+            background-color: #dc3545;
+            color: white;
+        }
+        .decline-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<h1>Tenants</h1>
+<div class="box-container">
+    <div class="box" th:each="tenant : ${tenants}">
+        <h3 th:text="'Username: ' + ${tenant.username}">Username: Placeholder</h3>
+        <p th:text="'First Name: ' + ${tenant.firstName}">First Name: Placeholder</p>
+        <p th:text="'Last Name: ' + ${tenant.lastName}">Last Name: Placeholder</p>
+        <p th:text="'Email: ' + ${tenant.email}">Email: Placeholder</p>
+        <p th:text="'Passport Number: ' + ${tenant.passsportNumber}">Passport Number: Placeholder</p>
+        <p th:text="'AFM: ' + ${tenant.afm}">AFM: Placeholder</p>
+        <form th:action="@{/administrator/tenants/confirm}" method="post">
+            <input type="hidden" name="tenantId" th:value="${tenant.id}" />
+            <button type="submit" class="confirm-button">Confirm</button>
+        </form>
+        <form th:action="@{/administrator/tenants/decline}" method="post">
+            <input type="hidden" name="tenantId" th:value="${tenant.id}" />
+            <button type="submit" class="decline-button">Decline</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

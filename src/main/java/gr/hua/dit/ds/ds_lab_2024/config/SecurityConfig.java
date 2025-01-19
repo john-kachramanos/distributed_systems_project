@@ -32,13 +32,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/view_all_registrations", "/saveAdmin", "/property/create", "/administrator/allRegistrations", "/tenant/create", "/home", "/register", "/saveUser", "/images/**", "/js/**", "/css/**").permitAll()
+                        .requestMatchers("/", "/view_all_registrations", "/saveAdmin", "/tenant/properties/search", "/property/create", "/administrator/allRegistrations", "/tenant/create", "/home", "/register", "/saveUser", "/images/**", "/js/**", "/css/**").permitAll()
                         .requestMatchers("/teacher/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/tenant/create", true)
+                        .defaultSuccessUrl("/tenant/properties/search", true)
                         .permitAll())
                 .logout((logout) -> logout.permitAll());
         return http.build();

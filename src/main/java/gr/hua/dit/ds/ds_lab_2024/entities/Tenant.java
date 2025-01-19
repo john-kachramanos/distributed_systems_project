@@ -27,6 +27,9 @@ public class Tenant {
     @Column(name = "afm")
     private String afm;
 
+    @Column (name = "adminConfirmation")
+    private Boolean adminConfirmation;
+
     @OneToMany
     @JoinColumn(name = "tenant_id", referencedColumnName = "id")
     private List<Rental> rentals;
@@ -35,7 +38,7 @@ public class Tenant {
 //    @JoinColumn(name = "tenant_id")
 //    private List<ApplyRental> applyRentals;
 
-    public Tenant(String username, String password, String firstName, String lastName, String email, String passsportNumber, String afm) {
+    public Tenant(String username, String password, String firstName, String lastName, String email, String passsportNumber, String afm, Boolean adminConfirmation) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -43,9 +46,14 @@ public class Tenant {
         this.email = email;
         this.passsportNumber = passsportNumber;
         this.afm = afm;
+        this.adminConfirmation = adminConfirmation;
     }
 
     public Tenant() {
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -112,7 +120,15 @@ public class Tenant {
         this.rentals = rentals;
     }
 
-//    public List<ApplyRental> getApplyRentals() {
+    public Boolean getAdminConfirmation() {
+        return adminConfirmation;
+    }
+
+    public void setAdminConfirmation(Boolean adminConfirmation) {
+        this.adminConfirmation = adminConfirmation;
+    }
+
+    //    public List<ApplyRental> getApplyRentals() {
 //        return applyRentals;
 //    }
 //

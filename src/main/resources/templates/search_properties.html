@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property List</title>
+    <style>
+        /* Existing CSS remains unchanged */
+    </style>
+</head>
+<body>
+<h1>Properties</h1>
+
+<div class="search-bar">
+    <form action="/properties/search" method="post" th:object="${filters}">
+        <input type="text" name="country" th:field="*{country}" placeholder="Country" />
+        <input type="text" name="town" th:field="*{town}" placeholder="Town" />
+        <input type="text" name="dimensions" th:field="*{dimensions}" placeholder="Dimensions" />
+        <input type="number" name="rentalPrice" th:field="*{rentalPrice}" placeholder="Rental Price" />
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<div class="box-container">
+    <div class="box" th:each="property : ${properties}">
+        <h3 th:text="'Country: ' + ${property.country}">Country: Placeholder</h3>
+        <p th:text="'Town: ' + ${property.town}">Town: Placeholder</p>
+        <p th:text="'Address: ' + ${property.address}">Address: Placeholder</p>
+        <p th:text="'Floor: ' + ${property.floor}">Floor: Placeholder</p>
+        <p th:text="'Postal Code: ' + ${property.postalCode}">Postal Code: Placeholder</p>
+        <p th:text="'Dimensions: ' + ${property.dimensions}">Dimensions: Placeholder</p>
+        <p th:text="'Rental Price: ' + ${property.rentalPrice}">Rental Price: Placeholder</p>
+
+        <form th:action="@{/administrator/properties/confirm}" method="post">
+            <input type="hidden" name="propertyId" th:value="${property.id}" />
+            <button type="submit" class="confirm-button">Confirm</button>
+        </form>
+        <form th:action="@{/administrator/properties/decline}" method="post">
+            <input type="hidden" name="propertyId" th:value="${property.id}" />
+            <button type="submit" class="decline-button">Decline</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

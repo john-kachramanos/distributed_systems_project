@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.ds_lab_2024.controllers;
 
+import gr.hua.dit.ds.ds_lab_2024.entities.Filter;
 import gr.hua.dit.ds.ds_lab_2024.entities.Property;
 import gr.hua.dit.ds.ds_lab_2024.entities.Tenant;
 import gr.hua.dit.ds.ds_lab_2024.repositories.TenantRepository;
@@ -7,10 +8,9 @@ import gr.hua.dit.ds.ds_lab_2024.service.PropertyService;
 import gr.hua.dit.ds.ds_lab_2024.service.TenantService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -45,5 +45,17 @@ public class TenantController {
     }
 
 
+    @GetMapping("/properties/search")
+    public String searchTenantProperties(@ModelAttribute Filter filters, Model model) {
+        try {
+            // Call the service method to get the filtered properties
+            List<Property> filteredProperties = tenantService.searchTenantProperties(filters.getCountry(), filters.getTown(), filters.getDimensions(), filters.getPrice());
+            model.addAttribute("properties", filteredProperties);
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+        }
+
+        return "search_properties"; // This should map to an HTML template to display the results
+    }
 
 }

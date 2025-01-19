@@ -30,6 +30,9 @@ public class Property {
     private Boolean status;
     @Column(name = "registration_status")
     private Boolean registrationStatus;
+    @Column (name = "rental_price")
+    private int rentalPrice;
+
     @ElementCollection
     List<LocalDate> occupiedDatesStart = new ArrayList<LocalDate>();
     @ElementCollection
@@ -54,7 +57,7 @@ public class Property {
     public Property() {
     }
 
-    public Property(String country, String town, String address, String floor, String postalCode, String dimensions, Boolean status, Boolean registrationStatus) {
+    public Property(String country, String town, String address, String floor, String postalCode, String dimensions, int rentalPrice, Boolean status, Boolean registrationStatus) {
         this.country = country;
         this.town = town;
         this.address = address;
@@ -62,7 +65,16 @@ public class Property {
         this.postalCode = postalCode;
         this.dimensions = dimensions;
         this.status = status;
+        this.rentalPrice = rentalPrice;
         this.registrationStatus = null;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Owner getOwner() {
+        return owner;
     }
 
     public String getCountry() {
@@ -145,7 +157,15 @@ public class Property {
         this.occupiedDatesEnd = occupiedDatesEnd;
     }
 
-//    public List<Rental> getRentals() {
+    public int getRentalPrice() {
+        return rentalPrice;
+    }
+
+    public void setRentalPrice(int rentalPrice) {
+        this.rentalPrice = rentalPrice;
+    }
+
+    //    public List<Rental> getRentals() {
 //        return rentals;
 //    }
 //

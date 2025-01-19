@@ -1,3 +1,5 @@
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +21,35 @@
             border-radius: 8px;
             padding: 20px;
             width: 200px;
-            height: 280px;
             text-align: center;
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .confirm-button, .decline-button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .confirm-button {
+            background-color: #28a745;
+            color: white;
+        }
+        .confirm-button:hover {
+            background-color: #218838;
+        }
+        .decline-button {
+            background-color: #dc3545;
+            color: white;
+        }
+        .decline-button:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
@@ -29,16 +57,49 @@
 <h1>Properties</h1>
 <div class="box-container">
     <div class="box" th:each="property : ${properties}">
-        <h3 th:text="'Country: ' + ${property.country}"></h3>
-        <p th:text="'Town: ' + ${property.town}"></p>
-        <p th:text="'Address: ' + ${property.address}"></p>
-        <p th:text="'Floor: ' + ${property.floor}"></p>
-        <p th:text="'Postal Code: ' + ${property.postalCode}"></p>
-        <p th:text="'Dimentions: ' + ${property.dimensions}"></p>
-        <button type="button">Confirm</button>
-        <button type="button">Decline</button>
+        <h3 th:text="'Country: ' + ${property.country}">Country: Placeholder</h3>
+        <p th:text="'Town: ' + ${property.town}">Town: Placeholder</p>
+        <p th:text="'Address: ' + ${property.address}">Address: Placeholder</p>
+        <p th:text="'Floor: ' + ${property.floor}">Floor: Placeholder</p>
+        <p th:text="'Postal Code: ' + ${property.postalCode}">Postal Code: Placeholder</p>
+        <p th:text="'Dimensions: ' + ${property.dimensions}">Dimensions: Placeholder</p>
+        <!-- <p th:text="'Dimensions: ' + ${property.id}">Dimensions: Placeholder</p> -->
+        <!--        <button class="confirm-button" onclick="sendPostRequest('/properties/confirm', 1)">Confirm</button>-->
+        <!--        <button class="decline-button" onclick="sendPostRequest('/properties/decline', 1)">Decline</button>-->
+        <form th:action="@{/administrator/properties/confirm}" method="post">
+            <input type="hidden" name="propertyId" th:value="${property.id}" />
+            <button type="submit" class="confirm-button">Confirm</button>
+        </form>
+        <form th:action="@{/administrator/properties/decline}" method="post">
+            <input type="hidden" name="propertyId" th:value="${property.id}" />
+            <button type="submit" class="decline-button">Decline</button>
+        </form>
+
+        <!--        <input type="hidden" name="propertyId" th:value="${property.id}" />-->
+        <!--        <button type="submit" class="decline-button">Decline</button>-->
+        </form>
     </div>
 </div>
-
+<!--<script>-->
+<!--    function sendPostRequest(url, propertyId) {-->
+<!--        fetch(url, {-->
+<!--            method: 'POST',-->
+<!--            headers: {-->
+<!--                'Content-Type': 'application/json',-->
+<!--            },-->
+<!--            body: JSON.stringify({ propertyId }),-->
+<!--        })-->
+<!--            .then(response => {-->
+<!--                if (response.ok) {-->
+<!--                    alert(`Request sent successfully to ${url}`);-->
+<!--                } else {-->
+<!--                    alert(`Failed to send request to ${url}`);-->
+<!--                }-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.error('Error:', error);-->
+<!--            });-->
+<!--    }-->
+<!--</script>-->
 </body>
 </html>
